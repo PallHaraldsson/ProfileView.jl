@@ -60,7 +60,8 @@ You have several options to control the output, of which the major ones are:
 
 See [FlameGraphs](https://github.com/timholy/FlameGraphs.jl) for more information.
 """
-function view(fcolor, data::Vector{UInt64}; lidict=nothing, C=false, combine=true, recur=:off, pruned=FlameGraphs.defaultpruned, kwargs...)
+function view(fcolor, data::Vector{UInt64}; lidict=nothing, C=false, combine=true, recur=:off, pruned=FlameGraphs.defaultpruned, c=false, kwargs...)
+    if C == false && c == true C = true end  # either true overrides
     g = flamegraph(data; lidict=lidict, C=C, combine=combine, recur=recur, pruned=pruned)
     g === nothing && return nothing
     return view(fcolor, g; data=data, lidict=lidict, kwargs...)
